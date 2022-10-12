@@ -81,11 +81,12 @@ model StoreProduct {
   product   Product @relation(fields: [productId], references: [id])
   productId Int
 
-  amount       Int
-  applyingTime ApplyingTime @default(ALL)
-  oppenedTime  DateTime
-  shelfTime    DateTime
-  expense      Int
+  amount         Int
+  applyingTime   ApplyingTime @default(ALL)
+  productionTime DateTime
+  openedTime     DateTime?
+  shelfTime      String
+  expense        String
 }
 
 model Routine {

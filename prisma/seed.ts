@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, Ingredient } from "@prisma/client";
+import { PrismaClient, Prisma, Ingredient, ApplyingTime } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { connect } from "http2";
 const prisma = new PrismaClient();
@@ -258,21 +258,47 @@ const ingredientList: Prisma.IngredientCreateInput[] =
     };
   });
 
+const storeData = { userId: 1 };
+
+const storeProductList: {
+  storeId: number;
+  productId: number;
+  amount: number;
+  applyingTime: ApplyingTime;
+  productionTime: Date;
+  openedTime: Date | null;
+  shelfTime: string;
+  expense: string;
+}[] = [];
+for (let i = 0; i < 16; i++) {
+  storeProductList.push({
+    storeId: 1,
+    productId: i + 1,
+    amount: faker.datatype.number({ min: 1, max: 20 }),
+    applyingTime: faker.helpers.arrayElement([
+      "ALL",
+      "DAY",
+      "Night",
+    ]) as ApplyingTime,
+    productionTime: faker.date.past(),
+    openedTime: faker.helpers.arrayElement([null, faker.date.recent()]),
+    shelfTime: faker.helpers.arrayElement(["3m", "6m", "12m", "24m"]),
+    expense: faker.finance.amount(10, 1000, 2, "$"),
+  });
+}
+
 async function main() {
   console.log(`Start seeding ...`);
   const user = await prisma.user.create({
     data: userRootData,
   });
-  // const addedProducts = await prisma.product.createMany({
-  //   data: productList,
-  // });
+
   const addedIngredients = await prisma.ingredient.createMany({
     data: ingredientList,
   });
 
   // const existedProducts = await prisma.product.findMany();
   const existedIngredients = await prisma.ingredient.findMany();
-
   const relatedIngredientList1: Ingredient[] = [];
   ingredientNameList1.forEach(async (i) => {
     const target = await prisma.ingredient.findUnique({
@@ -284,7 +310,6 @@ async function main() {
   });
 
   const relatedIngredientList2: Ingredient[] = [];
-
   for (let i of ingredientNameList2) {
     const target = await prisma.ingredient.findUnique({
       where: {
@@ -328,6 +353,15 @@ async function main() {
     });
   }
 
+  await prisma.store.create({
+    data: {
+      userId: 1,
+    },
+  });
+  console.log(storeProductList);
+  await prisma.storeProduct.createMany({
+    data: storeProductList,
+  });
   console.log(`Seeding finished.`);
 }
 
