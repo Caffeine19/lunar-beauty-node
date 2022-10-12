@@ -20,7 +20,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[1]",
@@ -29,7 +29,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[2]",
@@ -38,7 +38,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[3]",
@@ -47,7 +47,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[4]",
@@ -56,7 +56,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[5]",
@@ -65,7 +65,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[6]",
@@ -74,7 +74,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[7]",
@@ -83,7 +83,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[8]",
@@ -92,7 +92,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Sunscreen",
     capacity: "30ml",
-    mark: 4.6,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[0]",
@@ -101,7 +101,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[1]",
@@ -110,7 +110,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[2]",
@@ -119,7 +119,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[3]",
@@ -128,7 +128,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[4]",
@@ -137,7 +137,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[5]",
@@ -146,7 +146,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[6]",
@@ -155,7 +155,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[7]",
@@ -164,7 +164,7 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "this is a image",
     type: "Lotion",
     capacity: "240ml",
-    mark: 8.3,
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
 ];
 const ingredientNameList1 = [
