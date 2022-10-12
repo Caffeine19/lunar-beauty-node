@@ -12,7 +12,7 @@ model User {
   name     String
   password String
   avatar   String
-  phone    Int    @unique
+  phone    String @unique
   email    String @unique
   gender   Gender
 
@@ -29,11 +29,11 @@ model Product {
   id       Int    @id @default(autoincrement())
   name     String @unique
   brand    String
-  price    Int
+  price    String
   images   String
   type     String
   capacity String
-  mark     Int
+  mark     Float
 
   ingredients IngredientsOnProducts[]
 
