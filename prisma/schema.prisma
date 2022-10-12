@@ -3,25 +3,110 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id       Int    @id @default(autoincrement())
+  name     String
+  password String
+  avatar   String
+  phone    String @unique
+  email    String @unique
+  gender   Gender
+
+  stores   Store[]
+  routines Routine[]
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  viewCount Int      @default(0)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+enum Gender {
+  MAN
+  WOMON
+}
+
+model Product {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  brand    String
+  price    String
+  images   String
+  type     String
+  capacity String
+  mark     Float
+
+  ingredients IngredientsOnProducts[]
+
+  storeProducts StoreProduct[]
+
+  routineProducts RoutineProduct[]
+}
+
+model Ingredient {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  products IngredientsOnProducts[]
+}
+
+model IngredientsOnProducts {
+  product      Product    @relation(fields: [productId], references: [id])
+  productId    Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+
+  @@id([productId, ingredientId])
+}
+
+enum ApplyingTime {
+  ALL
+  DAY
+  Night
+}
+
+model Store {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  storeProducts StoreProduct[]
+}
+
+model StoreProduct {
+  id Int @id @default(autoincrement())
+
+  store   Store @relation(fields: [storeId], references: [id])
+  storeId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  amount         Int
+  applyingTime   ApplyingTime @default(ALL)
+  productionTime DateTime
+  openedTime     DateTime?
+  shelfTime      String
+  expense        String
+}
+
+model Routine {
+  id     Int    @id @default(autoincrement())
+  User   User   @relation(fields: [userId], references: [id])
+  userId Int
+  name   String
+
+  routineProducts RoutineProduct[]
+}
+
+model RoutineProduct {
+  id Int @id @default(autoincrement())
+
+  Routine   Routine @relation(fields: [routineId], references: [id])
+  routineId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  amount       Int
+  applyingTime ApplyingTime @default(ALL)
 }
