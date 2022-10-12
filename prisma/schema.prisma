@@ -12,7 +12,7 @@ model User {
   name     String
   password String
   avatar   String
-  phone    Int    @unique
+  phone    String @unique
   email    String @unique
   gender   Gender
 
@@ -29,11 +29,11 @@ model Product {
   id       Int    @id @default(autoincrement())
   name     String @unique
   brand    String
-  price    Int
+  price    String
   images   String
   type     String
   capacity String
-  mark     Int
+  mark     Float
 
   ingredients IngredientsOnProducts[]
 
@@ -81,11 +81,12 @@ model StoreProduct {
   product   Product @relation(fields: [productId], references: [id])
   productId Int
 
-  amount       Int
-  applyingTime ApplyingTime @default(ALL)
-  oppenedTime  DateTime
-  shelfTime    DateTime
-  expense      Int
+  amount         Int
+  applyingTime   ApplyingTime @default(ALL)
+  productionTime DateTime
+  openedTime     DateTime?
+  shelfTime      String
+  expense        String
 }
 
 model Routine {
@@ -108,5 +109,4 @@ model RoutineProduct {
 
   amount       Int
   applyingTime ApplyingTime @default(ALL)
-  Count        Int
 }
