@@ -287,6 +287,27 @@ for (let i = 0; i < 16; i++) {
   });
 }
 
+const routineData = ["2022-h1", "2022-h2", "2021-h1", "2021-h2"];
+
+const routineProductList: {
+  routineId: number;
+  productId: number;
+  amount: number;
+  applyingTime: ApplyingTime;
+}[] = [];
+for (let i = 0; i < 13; i++) {
+  routineProductList.push({
+    routineId: 1,
+    productId: i + 1,
+    amount: faker.datatype.number({ min: 1, max: 20 }),
+    applyingTime: faker.helpers.arrayElement([
+      "ALL",
+      "DAY",
+      "Night",
+    ]) as ApplyingTime,
+  });
+}
+
 async function main() {
   console.log(`Start seeding ...`);
   const user = await prisma.user.create({
@@ -362,6 +383,18 @@ async function main() {
   await prisma.storeProduct.createMany({
     data: storeProductList,
   });
+
+  for (let r of routineData) {
+    await prisma.routine.create({
+      data: { name: r, userId: 1 },
+    });
+  }
+
+  for (let p of routineProductList) {
+    await prisma.routineProduct.create({
+      data: p,
+    });
+  }
   console.log(`Seeding finished.`);
 }
 
