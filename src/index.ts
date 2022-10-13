@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 import productRouter from "./Controller/productController";
-app.use("/product", productRouter);
+app.use("/api/product", productRouter);
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;
 

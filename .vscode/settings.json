@@ -1,3 +1,15 @@
 {
-  "cSpell.words": ["NIOD"]
+  "cSpell.words": [
+    "NIOD"
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#578c82",
+    "activityBar.background": "#578c82",
+    "activityBar.foreground": "#f8f9fa",
+    "activityBar.inactiveForeground": "#f8f9fa99",
+    "activityBarBadge.background": "#d6c4da",
+    "activityBarBadge.foreground": "#f8f9fa",
+    "sash.hoverBorder": "#578c82"
+  },
+  "peacock.color": "#70a69c"
 }

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export const findProductOverView = async (category: string) => {
   try {
     let projectOverViewList;
-    if (category === "ALL") {
+    if (category === "All") {
       projectOverViewList = await prisma.product.findMany();
     } else {
       projectOverViewList = await prisma.product.findMany({
