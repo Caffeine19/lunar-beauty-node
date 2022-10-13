@@ -1,7 +1,6 @@
-import express from "express";
-import { Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { findProductOverView } from "../Service/productService";
-const productRouter = express.Router();
+const productRouter = Router();
 
 productRouter.post(
   "/findOverview",

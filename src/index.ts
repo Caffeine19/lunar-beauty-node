@@ -8,6 +8,9 @@ app.use(express.json());
 app.use(cors());
 import productRouter from "./Controller/productController";
 app.use("/api/product", productRouter);
+import ingredientRouter from "./Controller/ingredientController";
+app.use("/api/ingredient", ingredientRouter);
+//#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;
 
@@ -146,7 +149,7 @@ app.use("/api/product", productRouter);
 
 //   res.json(posts);
 // });
-
+//#endregion
 const server = app.listen(3008, () =>
   console.log(`
 🚀 Server ready at: http://localhost:3008
