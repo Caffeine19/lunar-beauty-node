@@ -8,7 +8,11 @@ export const findProductOverView = async (category: string) => {
     if (category === "ALL") {
       projectOverViewList = await prisma.product.findMany();
     } else {
-      projectOverViewList = await prisma.product.findMany();
+      projectOverViewList = await prisma.product.findMany({
+        where: {
+          category,
+        },
+      });
     }
     return projectOverViewList;
   } catch (error) {

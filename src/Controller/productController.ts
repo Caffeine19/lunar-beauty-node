@@ -7,9 +7,10 @@ productRouter.post(
   "/findOverview",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const category = { req }.toString();
-      console.log({ category });
-      const projectOverViewList = await findProductOverView(category);
+      const { category } = req.body;
+      const projectOverViewList = await findProductOverView(
+        category.toString()
+      );
       res.send(projectOverViewList);
     } catch (error) {
       next(error);
