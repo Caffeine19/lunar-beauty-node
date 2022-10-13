@@ -31,7 +31,7 @@ model Product {
   brand    String
   price    String
   images   String
-  type     String
+  category String
   capacity String
   mark     Float
 
