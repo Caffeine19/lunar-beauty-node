@@ -1,11 +1,11 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import express from "express";
-
+import cors from "cors";
 const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 import productRouter from "./Controller/productController";
 app.use("/product", productRouter);
 // app.post(`/signup`, async (req, res) => {
