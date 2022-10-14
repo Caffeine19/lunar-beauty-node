@@ -6,10 +6,13 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
 import productRouter from "./Controller/productController";
 app.use("/api/product", productRouter);
 import ingredientRouter from "./Controller/ingredientController";
 app.use("/api/ingredient", ingredientRouter);
+import commentRouter from "./Controller/commentController";
+app.use("/api/comment", commentRouter);
 //#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;
@@ -151,7 +154,5 @@ app.use("/api/ingredient", ingredientRouter);
 // });
 //#endregion
 const server = app.listen(3008, () =>
-  console.log(`
-🚀 Server ready at: http://localhost:3008
-⭐️ See sample requests: http://pris.ly/e/ts/rest-express#3-using-the-rest-api`)
+  console.log(`🚀 Server ready at: http://localhost:3008`)
 );
