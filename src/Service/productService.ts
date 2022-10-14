@@ -19,3 +19,15 @@ export const findProductOverView = async (category: string) => {
     throw error;
   }
 };
+export const findRelated = async (brand: string) => {
+  try {
+    const relatedProductList = await prisma.product.findMany({
+      where: {
+        brand,
+      },
+    });
+    return relatedProductList;
+  } catch (error) {
+    throw error;
+  }
+};
