@@ -16,7 +16,7 @@ model User {
   email    String @unique
   gender   Gender
 
-  stores   Store[]
+  store    Store?
   routines Routine[]
   Comment  Comment[]
 }
@@ -83,7 +83,7 @@ enum ApplyingTime {
 model Store {
   id     Int  @id @default(autoincrement())
   user   User @relation(fields: [userId], references: [id])
-  userId Int
+  userId Int  @unique
 
   storeProducts StoreProduct[]
 }
