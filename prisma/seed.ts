@@ -258,6 +258,32 @@ const ingredientList: Prisma.IngredientCreateInput[] =
     };
   });
 
+const commentsList = [
+  {
+    content:
+      "Prisma is also available on the Prisma Data Platform, a cloud-based, collaborative environment for teams and organizations to develop type-safe applications. ",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+  {
+    content:
+      "The platform focuses on developer productivity with GitHub integration for your code and schema, a visual data browser, an online query console, and an optional data proxy for handling database connections. For more information, refer to the Prisma Data Platform documentation.",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+  {
+    content:
+      "For a more detailed breakdown of what problems Prisma solves, and why it's built to make you more productive, see the Why Prisma section.",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+];
 const storeData = { userId: 1 };
 
 const storeProductList: {
@@ -374,6 +400,9 @@ async function main() {
     });
   }
 
+  for (let c of commentsList) {
+    await prisma.comment.create({ data: c });
+  }
   await prisma.store.create({
     data: {
       userId: 1,

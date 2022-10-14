@@ -63,7 +63,7 @@ model IngredientsOnProducts {
 
 model Comment {
   id           Int      @id @default(autoincrement())
-  content      String
+  content      String   @db.Text
   created_time DateTime @default(now())
   rank         Float
 
