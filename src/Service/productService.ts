@@ -48,6 +48,9 @@ export const findByStore = async (userId: number) => {
       where: {
         storeId,
       },
+      include: {
+        product: true,
+      },
     });
     return storeProductList;
   } catch (error) {

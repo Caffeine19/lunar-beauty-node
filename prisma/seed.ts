@@ -293,8 +293,9 @@ const storeProductList: {
   applyingTime: ApplyingTime;
   productionTime: Date;
   openedTime: Date | null;
-  shelfTime: string;
+  shelfTime: number;
   expense: string;
+  isRunout: boolean;
 }[] = [];
 for (let i = 0; i < 16; i++) {
   storeProductList.push({
@@ -308,8 +309,9 @@ for (let i = 0; i < 16; i++) {
     ]) as ApplyingTime,
     productionTime: faker.date.past(),
     openedTime: faker.helpers.arrayElement([null, faker.date.recent()]),
-    shelfTime: faker.helpers.arrayElement(["3m", "6m", "12m", "24m"]),
+    shelfTime: faker.helpers.arrayElement([3, 6, 12, 24]),
     expense: faker.finance.amount(10, 1000, 2, "$"),
+    isRunout: faker.helpers.arrayElement([true, false]),
   });
 }
 
