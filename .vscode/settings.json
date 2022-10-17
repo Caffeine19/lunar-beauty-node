@@ -11,5 +11,6 @@
     "activityBarBadge.foreground": "#f8f9fa",
     "sash.hoverBorder": "#578c82"
   },
-  "peacock.color": "#70a69c"
+  "peacock.color": "#70a69c",
+  "editor.formatOnSave": true
 }
