@@ -127,4 +127,5 @@ model RoutineProduct {
 
   amount       Int
   applyingTime ApplyingTime @default(ALL)
+  expense      String
 }

@@ -322,6 +322,7 @@ const routineProductList: {
   productId: number;
   amount: number;
   applyingTime: ApplyingTime;
+  expense: string;
 }[] = [];
 for (let i = 0; i < 13; i++) {
   routineProductList.push({
@@ -333,6 +334,7 @@ for (let i = 0; i < 13; i++) {
       "DAY",
       "Night",
     ]) as ApplyingTime,
+    expense: faker.finance.amount(0, 1000, 2, "$"),
   });
 }
 

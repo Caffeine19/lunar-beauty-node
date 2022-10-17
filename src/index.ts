@@ -17,6 +17,8 @@ import storeProductRouter from "./Controller/storeProductController";
 app.use("/api/storeProduct", storeProductRouter);
 import routineRouter from "./Controller/routineController";
 app.use("/api/routine", routineRouter);
+import routineProductRouter from "./Controller/routineProductController";
+app.use("/api/routineProduct", routineProductRouter);
 //#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;

@@ -3,14 +3,14 @@
     "NIOD"
   ],
   "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#578c82",
-    "activityBar.background": "#578c82",
+    "activityBar.activeBackground": "#495a7c",
+    "activityBar.background": "#495a7c",
     "activityBar.foreground": "#f8f9fa",
     "activityBar.inactiveForeground": "#f8f9fa99",
-    "activityBarBadge.background": "#d6c4da",
+    "activityBarBadge.background": "#3c232c",
     "activityBarBadge.foreground": "#f8f9fa",
-    "sash.hoverBorder": "#578c82"
+    "sash.hoverBorder": "#495a7c"
   },
-  "peacock.color": "#70a69c",
+  "peacock.color": "#5c719c",
   "editor.formatOnSave": true
 }
