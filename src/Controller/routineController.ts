@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { findByUser } from "../Service/routineService";
+import { findByUser, findFlow } from "../Service/routineService";
 const routineRouter = Router();
 
 routineRouter.post(
@@ -9,6 +9,16 @@ routineRouter.post(
       const { userId } = req.body;
       const routineList = await findByUser(userId);
       res.send({ routineList });
+    } catch (error) {}
+  }
+);
+routineRouter.post(
+  "/findFlow",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { routineId } = req.body;
+      const flowList = await findFlow(routineId);
+      res.send({ flowList });
     } catch (error) {}
   }
 );

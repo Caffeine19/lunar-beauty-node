@@ -18,7 +18,7 @@ model User {
 
   store    Store?
   routines Routine[]
-  Comment  Comment[]
+  comment  Comment[]
 }
 
 enum Gender {
@@ -38,7 +38,7 @@ model Product {
 
   ingredients IngredientsOnProducts[]
 
-  Comment Comment[]
+  comments Comment[]
 
   storeProducts StoreProduct[]
 
@@ -114,12 +114,14 @@ model Routine {
   name   String
 
   routineProducts RoutineProduct[]
+
+  edges Edge[]
 }
 
 model RoutineProduct {
   id Int @id @default(autoincrement())
 
-  Routine   Routine @relation(fields: [routineId], references: [id])
+  routine   Routine @relation(fields: [routineId], references: [id])
   routineId Int
 
   product   Product @relation(fields: [productId], references: [id])
@@ -128,4 +130,32 @@ model RoutineProduct {
   amount       Int
   applyingTime ApplyingTime @default(ALL)
   expense      String
+
+  poductNode ProductNode?
+}
+
+model ProductNode {
+  id               Int            @id @default(autoincrement())
+  label            String?
+  routineProduct   RoutineProduct @relation(fields: [routineProductId], references: [id])
+  routineProductId Int            @unique
+
+  ingredientNodes IngredientNode[]
+}
+
+model IngredientNode {
+  id            Int         @id @default(autoincrement())
+  label         String?
+  ProductNode   ProductNode @relation(fields: [productNodeId], references: [id])
+  productNodeId Int
+}
+
+model Edge {
+  id    Int     @id @default(autoincrement())
+  label String?
+  from  String
+  to    String
+
+  Routine   Routine? @relation(fields: [routineId], references: [id])
+  routineId Int?
 }

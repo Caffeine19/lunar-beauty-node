@@ -428,6 +428,41 @@ async function main() {
       data: p,
     });
   }
+
+  const existedRoutineProductList = await prisma.routineProduct.findMany({
+    where: {
+      routineId: 1,
+    },
+    include: {
+      product: {
+        include: {
+          ingredients: {
+            include: {
+              ingredient: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  for (let eP of existedRoutineProductList) {
+    await prisma.productNode.create({
+      data: {
+        label: eP.product.name,
+        routineProductId: eP.id,
+      },
+    });
+    for (let eI of eP.product.ingredients) {
+      await prisma.ingredientNode.create({
+        data: {
+          label: eI.ingredient.name,
+          productNodeId: eP.id,
+        },
+      });
+    }
+  }
+
   console.log(`Seeding finished.`);
 }
 
