@@ -448,7 +448,7 @@ async function main() {
 
   for (let eP of existedRoutineProductList) {
     if (existedRoutineProductList.indexOf(eP) < 7) {
-      await prisma.productNode.create({
+      const createdProductNode = await prisma.productNode.create({
         data: {
           label: eP.product.name,
           routineProductId: eP.id,
@@ -460,7 +460,7 @@ async function main() {
         await prisma.ingredientNode.create({
           data: {
             label: eI.ingredient.name,
-            productNodeId: eP.id,
+            productNodeId: createdProductNode.id,
             x: faker.datatype.number(500),
             y: faker.datatype.number(500),
           },
@@ -469,6 +469,37 @@ async function main() {
     }
   }
 
+  const existedIngredientNodeList = await prisma.ingredientNode.findMany();
+
+  for (let eI of existedIngredientNodeList) {
+    await prisma.edge.create({
+      data: {
+        source: eI.id + "INode",
+        target: eI.productNodeId + "PNode",
+        edgeType: "PI",
+        routineId: 1,
+      },
+    });
+    ``;
+  }
+
+  const existedProductNodeList = await prisma.productNode.findMany({
+    where: {
+      routineProduct: {
+        routineId: 1,
+      },
+    },
+  });
+  for (let e = 0; e < existedProductNodeList.length - 1; e++) {
+    await prisma.edge.create({
+      data: {
+        source: existedIngredientNodeList[e].id + "PNode",
+        target: existedIngredientNodeList[e + 1].id + "PNode",
+        edgeType: "PP",
+        routineId: 1,
+      },
+    });
+  }
   console.log(`Seeding finished.`);
 }
 

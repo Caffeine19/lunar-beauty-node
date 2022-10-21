@@ -115,7 +115,7 @@ model Routine {
 
   routineProducts RoutineProduct[]
 
-  edges Edge[]
+  edge Edge[]
 }
 
 model RoutineProduct {
@@ -156,12 +156,19 @@ model IngredientNode {
   productNodeId Int
 }
 
-model Edge {
-  id    Int     @id @default(autoincrement())
-  label String?
-  from  String
-  to    String
+enum EdgeType {
+  PP
+  PI
+  II
+}
 
-  Routine   Routine? @relation(fields: [routineId], references: [id])
+model Edge {
+  id       Int      @id @default(autoincrement())
+  label    String?
+  source   String
+  target   String
+  edgeType EdgeType
+
+  routine   Routine? @relation(fields: [routineId], references: [id])
   routineId Int?
 }

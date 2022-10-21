@@ -15,9 +15,9 @@ export const findByUser = async (userId: number) => {
   }
 };
 
-export const findFlow = async (routineId: number) => {
+export const findNode = async (routineId: number) => {
   try {
-    const productNode = await prisma.productNode.findMany({
+    const productNodeList = await prisma.productNode.findMany({
       where: {
         routineProduct: {
           routineId,
@@ -27,7 +27,21 @@ export const findFlow = async (routineId: number) => {
         ingredientNodes: true,
       },
     });
-    return productNode;
+    return productNodeList;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const findEdge = async (routineId: number) => {
+  try {
+    const edgeList = await prisma.edge.findMany({
+      where: {
+        routineId,
+      },
+    });
+
+    return edgeList;
   } catch (error) {
     throw error;
   }

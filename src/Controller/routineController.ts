@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { findByUser, findFlow } from "../Service/routineService";
+import { findByUser, findNode, findEdge } from "../Service/routineService";
 const routineRouter = Router();
 
 routineRouter.post(
@@ -13,13 +13,26 @@ routineRouter.post(
   }
 );
 routineRouter.post(
-  "/findFlow",
+  "/findNode",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { routineId } = req.body;
-      const flowList = await findFlow(routineId);
-      res.send({ flowList });
+      const nodeList = await findNode(routineId);
+      res.send({ nodeList });
     } catch (error) {}
+  }
+);
+routineRouter.post(
+  "/findEdge",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { routineId } = req.body;
+      const edgeList = await findEdge(routineId);
+
+      res.send({ edgeList });
+    } catch (error) {
+      next(error);
+    }
   }
 );
 export default routineRouter;
