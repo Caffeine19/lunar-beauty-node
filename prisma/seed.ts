@@ -324,7 +324,7 @@ const routineProductList: {
   applyingTime: ApplyingTime;
   expense: string;
 }[] = [];
-for (let i = 0; i < 13; i++) {
+for (let i = 6; i < 16; i++) {
   routineProductList.push({
     routineId: 1,
     productId: i + 1,
@@ -447,19 +447,25 @@ async function main() {
   });
 
   for (let eP of existedRoutineProductList) {
-    await prisma.productNode.create({
-      data: {
-        label: eP.product.name,
-        routineProductId: eP.id,
-      },
-    });
-    for (let eI of eP.product.ingredients) {
-      await prisma.ingredientNode.create({
+    if (existedRoutineProductList.indexOf(eP) < 7) {
+      await prisma.productNode.create({
         data: {
-          label: eI.ingredient.name,
-          productNodeId: eP.id,
+          label: eP.product.name,
+          routineProductId: eP.id,
+          x: faker.datatype.number(500),
+          y: faker.datatype.number(500),
         },
       });
+      for (let eI of eP.product.ingredients) {
+        await prisma.ingredientNode.create({
+          data: {
+            label: eI.ingredient.name,
+            productNodeId: eP.id,
+            x: faker.datatype.number(500),
+            y: faker.datatype.number(500),
+          },
+        });
+      }
     }
   }
 

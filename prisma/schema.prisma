@@ -135,8 +135,11 @@ model RoutineProduct {
 }
 
 model ProductNode {
-  id               Int            @id @default(autoincrement())
-  label            String?
+  id    Int     @id @default(autoincrement())
+  label String?
+  x     Int
+  y     Int
+
   routineProduct   RoutineProduct @relation(fields: [routineProductId], references: [id])
   routineProductId Int            @unique
 
@@ -144,8 +147,11 @@ model ProductNode {
 }
 
 model IngredientNode {
-  id            Int         @id @default(autoincrement())
-  label         String?
+  id    Int     @id @default(autoincrement())
+  label String?
+  x     Int
+  y     Int
+
   ProductNode   ProductNode @relation(fields: [productNodeId], references: [id])
   productNodeId Int
 }
