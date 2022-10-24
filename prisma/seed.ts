@@ -18,7 +18,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -27,7 +27,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -36,7 +36,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -45,7 +45,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -54,7 +54,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -63,7 +63,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -72,7 +72,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -81,7 +81,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -90,7 +90,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Sunscreen",
+    category: "Sunscreen",
     capacity: "30ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -99,7 +99,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -108,7 +108,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -117,7 +117,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -126,7 +126,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -135,7 +135,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -144,7 +144,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -153,7 +153,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -162,7 +162,7 @@ const productList: Prisma.ProductCreateInput[] = [
     brand: "NIOD[2]",
     price: faker.finance.amount(10, 100, 2, "$"),
     images: "this is a image",
-    type: "Lotion",
+    category: "Lotion",
     capacity: "240ml",
     mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
@@ -258,6 +258,32 @@ const ingredientList: Prisma.IngredientCreateInput[] =
     };
   });
 
+const commentsList = [
+  {
+    content:
+      "Prisma is also available on the Prisma Data Platform, a cloud-based, collaborative environment for teams and organizations to develop type-safe applications. ",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+  {
+    content:
+      "The platform focuses on developer productivity with GitHub integration for your code and schema, a visual data browser, an online query console, and an optional data proxy for handling database connections. For more information, refer to the Prisma Data Platform documentation.",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+  {
+    content:
+      "For a more detailed breakdown of what problems Prisma solves, and why it's built to make you more productive, see the Why Prisma section.",
+    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 1,
+    productId: 1,
+  },
+];
 const storeData = { userId: 1 };
 
 const storeProductList: {
@@ -267,8 +293,9 @@ const storeProductList: {
   applyingTime: ApplyingTime;
   productionTime: Date;
   openedTime: Date | null;
-  shelfTime: string;
+  shelfTime: number;
   expense: string;
+  isRunout: boolean;
 }[] = [];
 for (let i = 0; i < 16; i++) {
   storeProductList.push({
@@ -282,8 +309,9 @@ for (let i = 0; i < 16; i++) {
     ]) as ApplyingTime,
     productionTime: faker.date.past(),
     openedTime: faker.helpers.arrayElement([null, faker.date.recent()]),
-    shelfTime: faker.helpers.arrayElement(["3m", "6m", "12m", "24m"]),
+    shelfTime: faker.helpers.arrayElement([3, 6, 12, 24]),
     expense: faker.finance.amount(10, 1000, 2, "$"),
+    isRunout: faker.helpers.arrayElement([true, false]),
   });
 }
 
@@ -294,8 +322,9 @@ const routineProductList: {
   productId: number;
   amount: number;
   applyingTime: ApplyingTime;
+  expense: string;
 }[] = [];
-for (let i = 0; i < 13; i++) {
+for (let i = 6; i < 16; i++) {
   routineProductList.push({
     routineId: 1,
     productId: i + 1,
@@ -305,6 +334,7 @@ for (let i = 0; i < 13; i++) {
       "DAY",
       "Night",
     ]) as ApplyingTime,
+    expense: faker.finance.amount(0, 1000, 2, "$"),
   });
 }
 
@@ -374,6 +404,9 @@ async function main() {
     });
   }
 
+  for (let c of commentsList) {
+    await prisma.comment.create({ data: c });
+  }
   await prisma.store.create({
     data: {
       userId: 1,
@@ -393,6 +426,78 @@ async function main() {
   for (let p of routineProductList) {
     await prisma.routineProduct.create({
       data: p,
+    });
+  }
+
+  const existedRoutineProductList = await prisma.routineProduct.findMany({
+    where: {
+      routineId: 1,
+    },
+    include: {
+      product: {
+        include: {
+          ingredients: {
+            include: {
+              ingredient: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  for (let eP of existedRoutineProductList) {
+    if (existedRoutineProductList.indexOf(eP) < 7) {
+      const createdProductNode = await prisma.productNode.create({
+        data: {
+          label: eP.product.name,
+          routineProductId: eP.id,
+          x: faker.datatype.number(500),
+          y: faker.datatype.number(500),
+        },
+      });
+      for (let eI of eP.product.ingredients) {
+        await prisma.ingredientNode.create({
+          data: {
+            label: eI.ingredient.name,
+            productNodeId: createdProductNode.id,
+            x: faker.datatype.number(500),
+            y: faker.datatype.number(500),
+          },
+        });
+      }
+    }
+  }
+
+  const existedIngredientNodeList = await prisma.ingredientNode.findMany();
+
+  for (let eI of existedIngredientNodeList) {
+    await prisma.edge.create({
+      data: {
+        source: eI.id + "INode",
+        target: eI.productNodeId + "PNode",
+        edgeType: "PI",
+        routineId: 1,
+      },
+    });
+    ``;
+  }
+
+  const existedProductNodeList = await prisma.productNode.findMany({
+    where: {
+      routineProduct: {
+        routineId: 1,
+      },
+    },
+  });
+  for (let e = 0; e < existedProductNodeList.length - 1; e++) {
+    await prisma.edge.create({
+      data: {
+        source: existedIngredientNodeList[e].id + "PNode",
+        target: existedIngredientNodeList[e + 1].id + "PNode",
+        edgeType: "PP",
+        routineId: 1,
+      },
     });
   }
   console.log(`Seeding finished.`);
