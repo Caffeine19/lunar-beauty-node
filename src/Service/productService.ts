@@ -45,6 +45,22 @@ export const findRelated = async (brand: string) => {
         brand,
       },
     });
+
+    const basePath = "../lunar-beauty-node/src/static/productImages/Product/";
+    const taskList: any[] = [];
+    relatedProductList.forEach((p) => {
+      taskList.push(
+        fs.promises.readFile(basePath + p.images, {
+          encoding: "base64",
+        })
+      );
+    });
+
+    const productImageList = await Promise.all(taskList);
+
+    relatedProductList.forEach((p, index) => {
+      p.images = productImageList[index];
+    });
     return relatedProductList;
   } catch (error) {
     throw error;
