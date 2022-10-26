@@ -284,10 +284,9 @@ const commentsList = [
     productId: 1,
   },
 ];
-const storeData = { userId: 1 };
 
 const storeProductList: {
-  storeId: number;
+  userId: number;
   productId: number;
   amount: number;
   applyingTime: ApplyingTime;
@@ -299,7 +298,7 @@ const storeProductList: {
 }[] = [];
 for (let i = 0; i < 16; i++) {
   storeProductList.push({
-    storeId: 1,
+    userId: 1,
     productId: i + 1,
     amount: faker.datatype.number({ min: 1, max: 20 }),
     applyingTime: faker.helpers.arrayElement([
@@ -407,11 +406,7 @@ async function main() {
   for (let c of commentsList) {
     await prisma.comment.create({ data: c });
   }
-  await prisma.store.create({
-    data: {
-      userId: 1,
-    },
-  });
+
   console.log(storeProductList);
   await prisma.storeProduct.createMany({
     data: storeProductList,

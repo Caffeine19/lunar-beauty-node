@@ -16,9 +16,11 @@ model User {
   email    String @unique
   gender   Gender
 
-  store    Store?
-  routines Routine[]
-  comment  Comment[]
+  storeProducts StoreProduct[]
+  routines      Routine[]
+  comment       Comment[]
+
+  deleted Boolean @default(false)
 }
 
 enum Gender {
@@ -43,6 +45,8 @@ model Product {
   storeProducts StoreProduct[]
 
   routineProducts RoutineProduct[]
+
+  deleted Boolean @default(false)
 }
 
 model Ingredient {
@@ -50,6 +54,8 @@ model Ingredient {
   name String @unique
 
   products IngredientsOnProducts[]
+
+  deleted Boolean @default(false)
 }
 
 model IngredientsOnProducts {
@@ -72,6 +78,8 @@ model Comment {
 
   product   Product @relation(fields: [productId], references: [id])
   productId Int
+
+  deleted Boolean @default(false)
 }
 
 enum ApplyingTime {
@@ -80,19 +88,8 @@ enum ApplyingTime {
   Night
 }
 
-model Store {
-  id     Int  @id @default(autoincrement())
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
-
-  storeProducts StoreProduct[]
-}
-
 model StoreProduct {
   id Int @id @default(autoincrement())
-
-  store   Store @relation(fields: [storeId], references: [id])
-  storeId Int
 
   product   Product @relation(fields: [productId], references: [id])
   productId Int
@@ -105,6 +102,11 @@ model StoreProduct {
   shelfTime      Int
   openedTime     DateTime?
   isRunout       Boolean   @default(false)
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  deleted Boolean @default(false)
 }
 
 model Routine {
@@ -116,6 +118,8 @@ model Routine {
   routineProducts RoutineProduct[]
 
   edge Edge[]
+
+  deleted Boolean @default(false)
 }
 
 model RoutineProduct {
@@ -132,6 +136,8 @@ model RoutineProduct {
   expense      String
 
   poductNode ProductNode?
+
+  deleted Boolean @default(false)
 }
 
 model ProductNode {
@@ -144,6 +150,8 @@ model ProductNode {
   routineProductId Int            @unique
 
   ingredientNodes IngredientNode[]
+
+  deleted Boolean @default(false)
 }
 
 model IngredientNode {
@@ -154,6 +162,8 @@ model IngredientNode {
 
   ProductNode   ProductNode @relation(fields: [productNodeId], references: [id])
   productNodeId Int
+
+  deleted Boolean @default(false)
 }
 
 enum EdgeType {
@@ -171,4 +181,6 @@ model Edge {
 
   routine   Routine? @relation(fields: [routineId], references: [id])
   routineId Int?
+
+  deleted Boolean @default(false)
 }
