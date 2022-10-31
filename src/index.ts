@@ -13,12 +13,12 @@ import ingredientRouter from "./Controller/ingredientController";
 app.use("/api/ingredient", ingredientRouter);
 import commentRouter from "./Controller/commentController";
 app.use("/api/comment", commentRouter);
-import storeProductRouter from "./Controller/storeProductController";
-app.use("/api/storeProduct", storeProductRouter);
+import storeItemRouter from "./Controller/storeItemController";
+app.use("/api/storeItem", storeItemRouter);
 import routineRouter from "./Controller/routineController";
 app.use("/api/routine", routineRouter);
-import routineProductRouter from "./Controller/routineProductController";
-app.use("/api/routineProduct", routineProductRouter);
+import routineItemRouter from "./Controller/routineItemController";
+app.use("/api/routineItem", routineItemRouter);
 //#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;

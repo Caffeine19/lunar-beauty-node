@@ -285,7 +285,7 @@ const commentsList = [
   },
 ];
 
-const storeProductList: {
+const storeItemList: {
   userId: number;
   productId: number;
   amount: number;
@@ -297,7 +297,7 @@ const storeProductList: {
   isRunout: boolean;
 }[] = [];
 for (let i = 0; i < 16; i++) {
-  storeProductList.push({
+  storeItemList.push({
     userId: 1,
     productId: i + 1,
     amount: faker.datatype.number({ min: 1, max: 20 }),
@@ -316,7 +316,7 @@ for (let i = 0; i < 16; i++) {
 
 const routineData = ["2022-h1", "2022-h2", "2021-h1", "2021-h2"];
 
-const routineProductList: {
+const routineItemList: {
   routineId: number;
   productId: number;
   amount: number;
@@ -324,7 +324,7 @@ const routineProductList: {
   expense: string;
 }[] = [];
 for (let i = 6; i < 16; i++) {
-  routineProductList.push({
+  routineItemList.push({
     routineId: 1,
     productId: i + 1,
     amount: faker.datatype.number({ min: 1, max: 20 }),
@@ -407,9 +407,9 @@ async function main() {
     await prisma.comment.create({ data: c });
   }
 
-  console.log(storeProductList);
-  await prisma.storeProduct.createMany({
-    data: storeProductList,
+  console.log(storeItemList);
+  await prisma.storeItem.createMany({
+    data: storeItemList,
   });
 
   for (let r of routineData) {
@@ -418,13 +418,13 @@ async function main() {
     });
   }
 
-  for (let p of routineProductList) {
-    await prisma.routineProduct.create({
+  for (let p of routineItemList) {
+    await prisma.routineItem.create({
       data: p,
     });
   }
 
-  const existedRoutineProductList = await prisma.routineProduct.findMany({
+  const existedRoutineItemList = await prisma.routineItem.findMany({
     where: {
       routineId: 1,
     },
@@ -441,12 +441,12 @@ async function main() {
     },
   });
 
-  for (let eP of existedRoutineProductList) {
-    if (existedRoutineProductList.indexOf(eP) < 7) {
+  for (let eP of existedRoutineItemList) {
+    if (existedRoutineItemList.indexOf(eP) < 7) {
       const createdProductNode = await prisma.productNode.create({
         data: {
           label: eP.product.name,
-          routineProductId: eP.id,
+          routineItemId: eP.id,
           x: faker.datatype.number(500),
           y: faker.datatype.number(500),
         },
@@ -480,7 +480,7 @@ async function main() {
 
   const existedProductNodeList = await prisma.productNode.findMany({
     where: {
-      routineProduct: {
+      routineItem: {
         routineId: 1,
       },
     },

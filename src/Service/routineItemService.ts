@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const findByRoutine = async (routineId: number) => {
   try {
-    const routineProductList = await prisma.routineProduct.findMany({
+    const routineItemList = await prisma.routineItem.findMany({
       where: {
         routineId,
       },
@@ -12,7 +12,7 @@ export const findByRoutine = async (routineId: number) => {
         product: true,
       },
     });
-    return routineProductList;
+    return routineItemList;
   } catch (error) {
     throw error;
   }

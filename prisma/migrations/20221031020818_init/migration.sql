@@ -7,6 +7,7 @@ CREATE TABLE `User` (
     `phone` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `gender` ENUM('MAN', 'WOMON') NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `User_phone_key`(`phone`),
     UNIQUE INDEX `User_email_key`(`email`),
@@ -23,6 +24,7 @@ CREATE TABLE `Product` (
     `category` VARCHAR(191) NOT NULL,
     `capacity` VARCHAR(191) NOT NULL,
     `mark` DOUBLE NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Product_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -32,6 +34,7 @@ CREATE TABLE `Product` (
 CREATE TABLE `Ingredient` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Ingredient_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -53,30 +56,24 @@ CREATE TABLE `Comment` (
     `rank` DOUBLE NOT NULL,
     `userId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Store` (
+CREATE TABLE `StoreItem` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `userId` INTEGER NOT NULL,
-
-    UNIQUE INDEX `Store_userId_key`(`userId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `StoreProduct` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `storeId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
     `amount` INTEGER NOT NULL,
     `applyingTime` ENUM('ALL', 'DAY', 'Night') NOT NULL DEFAULT 'ALL',
-    `productionTime` DATETIME(3) NOT NULL,
-    `openedTime` DATETIME(3) NULL,
-    `shelfTime` VARCHAR(191) NOT NULL,
     `expense` VARCHAR(191) NOT NULL,
+    `productionTime` DATETIME(3) NOT NULL,
+    `shelfTime` INTEGER NOT NULL,
+    `openedTime` DATETIME(3) NULL,
+    `isRunout` BOOLEAN NOT NULL DEFAULT false,
+    `userId` INTEGER NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -86,17 +83,58 @@ CREATE TABLE `Routine` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `RoutineProduct` (
+CREATE TABLE `RoutineItem` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `routineId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
     `amount` INTEGER NOT NULL,
     `applyingTime` ENUM('ALL', 'DAY', 'Night') NOT NULL DEFAULT 'ALL',
+    `expense` VARCHAR(191) NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `ProductNode` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `label` VARCHAR(191) NULL,
+    `x` INTEGER NOT NULL,
+    `y` INTEGER NOT NULL,
+    `routineItemId` INTEGER NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+
+    UNIQUE INDEX `ProductNode_routineItemId_key`(`routineItemId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `IngredientNode` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `label` VARCHAR(191) NULL,
+    `x` INTEGER NOT NULL,
+    `y` INTEGER NOT NULL,
+    `productNodeId` INTEGER NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Edge` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `label` VARCHAR(191) NULL,
+    `source` VARCHAR(191) NOT NULL,
+    `target` VARCHAR(191) NOT NULL,
+    `edgeType` ENUM('PP', 'PI', 'II') NOT NULL,
+    `routineId` INTEGER NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -114,19 +152,25 @@ ALTER TABLE `Comment` ADD CONSTRAINT `Comment_userId_fkey` FOREIGN KEY (`userId`
 ALTER TABLE `Comment` ADD CONSTRAINT `Comment_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Store` ADD CONSTRAINT `Store_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `StoreItem` ADD CONSTRAINT `StoreItem_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `StoreProduct` ADD CONSTRAINT `StoreProduct_storeId_fkey` FOREIGN KEY (`storeId`) REFERENCES `Store`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `StoreProduct` ADD CONSTRAINT `StoreProduct_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `StoreItem` ADD CONSTRAINT `StoreItem_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Routine` ADD CONSTRAINT `Routine_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `RoutineProduct` ADD CONSTRAINT `RoutineProduct_routineId_fkey` FOREIGN KEY (`routineId`) REFERENCES `Routine`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `RoutineItem` ADD CONSTRAINT `RoutineItem_routineId_fkey` FOREIGN KEY (`routineId`) REFERENCES `Routine`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `RoutineProduct` ADD CONSTRAINT `RoutineProduct_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `RoutineItem` ADD CONSTRAINT `RoutineItem_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ProductNode` ADD CONSTRAINT `ProductNode_routineItemId_fkey` FOREIGN KEY (`routineItemId`) REFERENCES `RoutineItem`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `IngredientNode` ADD CONSTRAINT `IngredientNode_productNodeId_fkey` FOREIGN KEY (`productNodeId`) REFERENCES `ProductNode`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Edge` ADD CONSTRAINT `Edge_routineId_fkey` FOREIGN KEY (`routineId`) REFERENCES `Routine`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

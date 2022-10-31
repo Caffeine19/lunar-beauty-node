@@ -19,7 +19,7 @@ export const findNode = async (routineId: number) => {
   try {
     const productNodeList = await prisma.productNode.findMany({
       where: {
-        routineProduct: {
+        routineItem: {
           routineId,
         },
       },

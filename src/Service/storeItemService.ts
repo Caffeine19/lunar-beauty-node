@@ -5,7 +5,7 @@ import fs from "fs";
 const prisma = new PrismaClient();
 
 prisma.$use(async (params, next) => {
-  if (params.model == "StoreProduct") {
+  if (params.model == "StoreItem") {
     if (params.action == "delete") {
       params.action = "update";
       params.args["data"] = { deleted: true };
@@ -16,7 +16,7 @@ prisma.$use(async (params, next) => {
 
 export const findByUser = async (userId: number) => {
   try {
-    const storeProductList = await prisma.storeProduct.findMany({
+    const storeItemList = await prisma.storeItem.findMany({
       where: {
         userId,
         deleted: false,
@@ -28,7 +28,7 @@ export const findByUser = async (userId: number) => {
     const basePath = "../lunar-beauty-node/src/static/productImages/Product/";
     const taskList: any[] = [];
 
-    storeProductList.forEach((p) => {
+    storeItemList.forEach((p) => {
       taskList.push(
         fs.promises.readFile(basePath + p.product.images, {
           encoding: "base64",
@@ -38,22 +38,35 @@ export const findByUser = async (userId: number) => {
 
     const productImageList = await Promise.all(taskList);
 
-    storeProductList.forEach((p, index) => {
+    storeItemList.forEach((p, index) => {
       p.product.images = productImageList[index];
     });
-    return storeProductList;
+    return storeItemList;
   } catch (error) {
     throw error;
   }
 };
-export const deleteById = async (storeProductId: number) => {
+export const deleteById = async (storeItemId: number) => {
   try {
-    const deletedStoreProduct = await prisma.storeProduct.delete({
+    const deletedStoreItem = await prisma.storeItem.delete({
       where: {
-        id: storeProductId,
+        id: storeItemId,
       },
     });
-    return deletedStoreProduct;
+    return deletedStoreItem;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateById = async (storeItemId: number) => {
+  try {
+    const updatedStoreItem = await prisma.storeItem.update({
+      where: {
+        id: storeItemId,
+      },
+      data: {},
+    });
   } catch (error) {
     throw error;
   }
