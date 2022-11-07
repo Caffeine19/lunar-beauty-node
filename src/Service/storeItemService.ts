@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { ApplyingTime, PrismaClient } from "@prisma/client";
 
 import fs from "fs";
 
@@ -59,14 +59,32 @@ export const deleteById = async (storeItemId: number) => {
   }
 };
 
-export const updateById = async (storeItemId: number) => {
+export const updateById = async (
+  storeItemId: number,
+  amount: number,
+  applyingTime: ApplyingTime,
+  expense: string,
+  productionTime: string,
+  shelfTime: number,
+  openedTime: string,
+  isRunout: boolean
+) => {
   try {
     const updatedStoreItem = await prisma.storeItem.update({
       where: {
         id: storeItemId,
       },
-      data: {},
+      data: {
+        amount,
+        applyingTime,
+        expense,
+        productionTime,
+        shelfTime,
+        openedTime,
+        isRunout,
+      },
     });
+    return updatedStoreItem;
   } catch (error) {
     throw error;
   }

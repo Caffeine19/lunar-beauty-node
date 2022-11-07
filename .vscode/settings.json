@@ -1,4 +1,5 @@
 {
   "cSpell.words": ["NIOD"],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "Ayu Mirage Bordered"
 }
