@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma, Ingredient, ApplyingTime } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { connect } from "http2";
+
 const prisma = new PrismaClient();
 
 const userRootData: Prisma.UserCreateInput = {
@@ -11,6 +11,18 @@ const userRootData: Prisma.UserCreateInput = {
   phone: "13056661166",
   gender: "MAN",
 };
+
+const userData: Prisma.UserCreateInput[] = Array.from({ length: 8 }).map(() => {
+  const name = faker.name.firstName();
+  return {
+    name,
+    password: name + "123",
+    email: faker.internet.email(name),
+    phone: faker.phone.number("###########"),
+    avatar: "this is a avatar",
+    gender: faker.helpers.arrayElement(["MAN", "WOMAN"]),
+  };
+});
 
 const productList: Prisma.ProductCreateInput[] = [
   {
@@ -339,9 +351,11 @@ for (let i = 6; i < 16; i++) {
 
 async function main() {
   console.log(`Start seeding ...`);
-  const user = await prisma.user.create({
+  const userRoot = await prisma.user.create({
     data: userRootData,
   });
+
+  const addedUsers = await prisma.user.createMany({ data: userData });
 
   const addedIngredients = await prisma.ingredient.createMany({
     data: ingredientList,

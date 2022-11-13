@@ -7,6 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+import userRouter from "./Controller/userController";
+app.use("/api/user", userRouter);
 import productRouter from "./Controller/productController";
 app.use("/api/product", productRouter);
 import ingredientRouter from "./Controller/ingredientController";

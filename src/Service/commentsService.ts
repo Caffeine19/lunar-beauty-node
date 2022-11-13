@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import commentRouter from "../Controller/commentController";
 
 const prisma = new PrismaClient();
 
