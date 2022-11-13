@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { login } from "../Service/userService";
+import { login, register } from "../Service/userService";
 const userRouter = Router();
 
 userRouter.post(
@@ -14,6 +14,17 @@ userRouter.post(
     }
   }
 );
-userRouter.post("/register");
+userRouter.post(
+  "/register",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { name, password } = req.body;
+      const addedUser = await register(name, password);
+      res.send({ addedUser });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export default userRouter;
