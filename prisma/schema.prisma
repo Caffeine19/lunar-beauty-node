@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   password String
-  avatar   String
-  phone    String @unique
-  email    String @unique
-  gender   Gender
+  avatar   String?
+  phone    String? @unique
+  email    String? @unique
+  gender   Gender?
 
   storeItems StoreItem[]
   routines   Routine[]
