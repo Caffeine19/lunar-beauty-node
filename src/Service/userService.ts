@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Gender, PrismaClient } from "@prisma/client";
 import { userInfo } from "os";
 
 const prisma = new PrismaClient();
@@ -33,6 +33,34 @@ export const register = async (name: string, password: string) => {
       },
     });
     return addedUser;
+  } catch (error) {
+    throw error;
+  }
+};
+export const updateById = async (
+  userId: number,
+  name: string,
+  password: string,
+  avatar: string,
+  phone: string,
+  email: string,
+  gender: Gender
+) => {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name,
+        password,
+        avatar,
+        phone,
+        email,
+        gender,
+      },
+    });
+    return updatedUser;
   } catch (error) {
     throw error;
   }

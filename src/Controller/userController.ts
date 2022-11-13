@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { login, register } from "../Service/userService";
+import { login, register, updateById } from "../Service/userService";
 const userRouter = Router();
 
 userRouter.post(
@@ -26,5 +26,26 @@ userRouter.post(
     }
   }
 );
+userRouter.post(
+  "/updateById",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId, name, password, avatar, phone, email, gender } = req.body;
 
+      const updatedUser = await updateById(
+        userId,
+        name,
+        password,
+        avatar,
+        phone,
+        email,
+        gender
+      );
+
+      res.send({ updatedUser });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 export default userRouter;
