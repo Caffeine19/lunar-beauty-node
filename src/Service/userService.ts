@@ -2,6 +2,8 @@ import prisma from "./prisma";
 
 import { SHA256 } from "crypto-js";
 
+import { generateToken } from "../utils/token";
+
 export const login = async (name: string, password: string) => {
   try {
     const user = await prisma.user.findMany({
@@ -10,10 +12,13 @@ export const login = async (name: string, password: string) => {
       },
     });
     if (user.length != 1) throw new Error("user didn't exist");
-    if (SHA256(user[0].password).toString() != password)
+
+    if (SHA256(password).toString() != user[0].password)
       throw Error("wrong password");
 
-    return user;
+    const token = generateToken(user[0].name, user[0].password);
+
+    return { user, token };
   } catch (error) {
     throw error;
   }

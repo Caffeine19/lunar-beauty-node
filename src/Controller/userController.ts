@@ -13,8 +13,8 @@ userRouter.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, password } = req.body;
-      const user = await login(name, password);
-      res.send({ user });
+      const loggedUser = await login(name, password);
+      res.send(loggedUser);
     } catch (error) {
       next(error);
     }
