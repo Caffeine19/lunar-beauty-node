@@ -52,3 +52,18 @@ export const updateById = async (userUpdateOption: IUserUpdateOption) => {
     throw error;
   }
 };
+
+export const deleteById = async (userId: number) => {
+  try {
+    // if (!userId) throw new Error("missing userId");
+
+    const deletedUser = await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+    return deletedUser;
+  } catch (error) {
+    throw error;
+  }
+};

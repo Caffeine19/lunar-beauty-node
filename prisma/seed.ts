@@ -356,7 +356,7 @@ async function main() {
   });
 
   const addedUsers = await prisma.user.createMany({ data: userData });
-
+  console.log(addedUsers);
   const addedIngredients = await prisma.ingredient.createMany({
     data: ingredientList,
   });
@@ -421,7 +421,7 @@ async function main() {
     await prisma.comment.create({ data: c });
   }
 
-  console.log(storeItemList);
+  // console.log(storeItemList);
   await prisma.storeItem.createMany({
     data: storeItemList,
   });

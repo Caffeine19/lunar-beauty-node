@@ -8,6 +8,12 @@ prisma.$use(async (params, next) => {
       params.args["data"] = { deleted: true };
     }
   }
+  if (params.model == "User") {
+    if (params.action == "delete") {
+      params.action = "update";
+      params.args["data"] = { deleted: true };
+    }
+  }
   return next(params);
 });
 

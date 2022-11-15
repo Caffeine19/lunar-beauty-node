@@ -1,6 +1,11 @@
 import { Gender } from "@prisma/client";
 import { Router, Request, Response, NextFunction } from "express";
-import { login, register, updateById } from "../Service/userService";
+import {
+  login,
+  register,
+  updateById,
+  deleteById,
+} from "../Service/userService";
 const userRouter = Router();
 
 userRouter.post(
@@ -38,6 +43,19 @@ userRouter.post(
       const updatedUser = await updateById(userData as IUserUpdateOption);
 
       res.send({ updatedUser });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+userRouter.post(
+  "/deleteById",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.body;
+      const deletedUser = await deleteById(userId);
+      res.send({ deletedUser });
     } catch (error) {
       next(error);
     }
