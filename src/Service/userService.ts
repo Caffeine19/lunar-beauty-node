@@ -1,6 +1,6 @@
 import prisma from "./prisma";
-import { Gender } from "@prisma/client";
-import { userInfo } from "os";
+
+import { SHA256 } from "crypto-js";
 
 export const login = async (name: string, password: string) => {
   try {
@@ -10,7 +10,8 @@ export const login = async (name: string, password: string) => {
       },
     });
     if (user.length != 1) throw new Error("user didn't exist");
-    if (user[0].password != password) throw Error("wrong password");
+    if (SHA256(user[0].password).toString() != password)
+      throw Error("wrong password");
 
     return user;
   } catch (error) {
@@ -28,7 +29,7 @@ export const register = async (name: string, password: string) => {
     const addedUser = await prisma.user.create({
       data: {
         name,
-        password,
+        password: SHA256(password).toString(),
       },
     });
     return addedUser;

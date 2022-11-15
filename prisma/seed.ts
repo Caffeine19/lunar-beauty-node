@@ -1,11 +1,12 @@
 import { PrismaClient, Prisma, Ingredient, ApplyingTime } from "@prisma/client";
 import { faker } from "@faker-js/faker";
+import { SHA256 } from "crypto-js";
 
 const prisma = new PrismaClient();
 
 const userRootData: Prisma.UserCreateInput = {
   name: "LazyFish",
-  password: "lf@123",
+  password: SHA256("lf@123").toString(),
   email: "939597201@qq.com",
   avatar: "this is a avatar",
   phone: "13056661166",
@@ -16,7 +17,7 @@ const userData: Prisma.UserCreateInput[] = Array.from({ length: 8 }).map(() => {
   const name = faker.name.firstName();
   return {
     name,
-    password: name + "123",
+    password: SHA256(name + "123").toString(),
     email: faker.internet.email(name),
     phone: faker.phone.number("###########"),
     avatar: "this is a avatar",
@@ -356,7 +357,7 @@ async function main() {
   });
 
   const addedUsers = await prisma.user.createMany({ data: userData });
-  console.log(addedUsers);
+  // console.log(addedUsers);
   const addedIngredients = await prisma.ingredient.createMany({
     data: ingredientList,
   });
