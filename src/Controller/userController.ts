@@ -1,3 +1,4 @@
+import { Gender } from "@prisma/client";
 import { Router, Request, Response, NextFunction } from "express";
 import { login, register, updateById } from "../Service/userService";
 const userRouter = Router();
@@ -26,21 +27,15 @@ userRouter.post(
     }
   }
 );
+
+import { IUserUpdateOption } from "../types/userUpdateOption";
 userRouter.post(
   "/updateById",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { userId, name, password, avatar, phone, email, gender } = req.body;
+      const { userData } = req.body;
 
-      const updatedUser = await updateById(
-        userId,
-        name,
-        password,
-        avatar,
-        phone,
-        email,
-        gender
-      );
+      const updatedUser = await updateById(userData as IUserUpdateOption);
 
       res.send({ updatedUser });
     } catch (error) {

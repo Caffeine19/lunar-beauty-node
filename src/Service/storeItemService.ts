@@ -1,18 +1,8 @@
-import { ApplyingTime, PrismaClient } from "@prisma/client";
+import prisma from "./prisma";
+
+import { ApplyingTime } from "@prisma/client";
 
 import fs from "fs";
-
-const prisma = new PrismaClient();
-
-prisma.$use(async (params, next) => {
-  if (params.model == "StoreItem") {
-    if (params.action == "delete") {
-      params.action = "update";
-      params.args["data"] = { deleted: true };
-    }
-  }
-  return next(params);
-});
 
 export const findByUser = async (userId: number) => {
   try {

@@ -1,7 +1,6 @@
-import { Gender, PrismaClient } from "@prisma/client";
+import prisma from "./prisma";
+import { Gender } from "@prisma/client";
 import { userInfo } from "os";
-
-const prisma = new PrismaClient();
 
 export const login = async (name: string, password: string) => {
   try {
@@ -37,27 +36,15 @@ export const register = async (name: string, password: string) => {
     throw error;
   }
 };
-export const updateById = async (
-  userId: number,
-  name: string,
-  password: string,
-  avatar: string,
-  phone: string,
-  email: string,
-  gender: Gender
-) => {
+import { IUserUpdateOption } from "../types/userUpdateOption";
+export const updateById = async (userUpdateOption: IUserUpdateOption) => {
   try {
     const updatedUser = await prisma.user.update({
       where: {
-        id: userId,
+        id: userUpdateOption.userId,
       },
       data: {
-        name,
-        password,
-        avatar,
-        phone,
-        email,
-        gender,
+        ...userUpdateOption,
       },
     });
     return updatedUser;

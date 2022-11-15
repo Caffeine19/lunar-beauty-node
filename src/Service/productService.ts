@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "./prisma";
 
 import fs from "fs";
-
-const prisma = new PrismaClient();
 
 export const findProductOverView = async (category: string) => {
   try {
