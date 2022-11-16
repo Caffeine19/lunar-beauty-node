@@ -18,7 +18,7 @@ export const login = async (name: string, password: string) => {
 
     const token = generateToken(user[0].name, user[0].password);
 
-    return { user, token };
+    return { user: user[0], token };
   } catch (error) {
     throw error;
   }

@@ -16,7 +16,9 @@ userRouter.post(
       const loggedUser = await login(name, password);
       res.send(loggedUser);
     } catch (error) {
-      next(error);
+      if (error instanceof Error) {
+        res.status(500).send({ err: error.message });
+      }
     }
   }
 );
