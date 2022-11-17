@@ -40,13 +40,19 @@ userRouter.post(
   "/updateById",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { userData } = req.body;
+      console.log("req", req.body);
+      const { userId, userData } = req.body;
 
-      const updatedUser = await updateById(userData as IUserUpdateOption);
+      const updatedUser = await updateById(
+        userId,
+        userData as IUserUpdateOption
+      );
 
       res.send({ updatedUser });
     } catch (error) {
-      next(error);
+      if (error instanceof Error) {
+        res.status(500).send({ err: error.message });
+      }
     }
   }
 );

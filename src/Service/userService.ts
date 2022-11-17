@@ -43,11 +43,14 @@ export const register = async (name: string, password: string) => {
   }
 };
 import { IUserUpdateOption } from "../types/userUpdateOption";
-export const updateById = async (userUpdateOption: IUserUpdateOption) => {
+export const updateById = async (
+  userId: number,
+  userUpdateOption: IUserUpdateOption
+) => {
   try {
     const updatedUser = await prisma.user.update({
       where: {
-        id: userUpdateOption.userId,
+        id: userId,
       },
       data: {
         ...userUpdateOption,

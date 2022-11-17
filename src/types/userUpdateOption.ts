@@ -1,7 +1,6 @@
 import { Gender } from "@prisma/client";
 
 export interface IUserUpdateOption {
-  userId: number;
   name: string;
   password: string;
   avatar: string;
