@@ -1,16 +1,29 @@
 import { PrismaClient, Prisma, Ingredient, ApplyingTime } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { connect } from "http2";
+import { SHA256 } from "crypto-js";
+
 const prisma = new PrismaClient();
 
 const userRootData: Prisma.UserCreateInput = {
   name: "LazyFish",
-  password: "lf@123",
+  password: SHA256("lf@123").toString(),
   email: "939597201@qq.com",
   avatar: "this is a avatar",
   phone: "13056661166",
   gender: "MAN",
 };
+
+const userData: Prisma.UserCreateInput[] = Array.from({ length: 8 }).map(() => {
+  const name = faker.name.firstName();
+  return {
+    name,
+    password: SHA256(name + "123").toString(),
+    email: faker.internet.email(name),
+    phone: faker.phone.number("###########"),
+    avatar: "this is a avatar",
+    gender: faker.helpers.arrayElement(["MAN", "WOMAN"]),
+  };
+});
 
 const productList: Prisma.ProductCreateInput[] = [
   {
@@ -284,10 +297,9 @@ const commentsList = [
     productId: 1,
   },
 ];
-const storeData = { userId: 1 };
 
-const storeProductList: {
-  storeId: number;
+const storeItemList: {
+  userId: number;
   productId: number;
   amount: number;
   applyingTime: ApplyingTime;
@@ -298,8 +310,8 @@ const storeProductList: {
   isRunout: boolean;
 }[] = [];
 for (let i = 0; i < 16; i++) {
-  storeProductList.push({
-    storeId: 1,
+  storeItemList.push({
+    userId: 1,
     productId: i + 1,
     amount: faker.datatype.number({ min: 1, max: 20 }),
     applyingTime: faker.helpers.arrayElement([
@@ -317,7 +329,7 @@ for (let i = 0; i < 16; i++) {
 
 const routineData = ["2022-h1", "2022-h2", "2021-h1", "2021-h2"];
 
-const routineProductList: {
+const routineItemList: {
   routineId: number;
   productId: number;
   amount: number;
@@ -325,7 +337,7 @@ const routineProductList: {
   expense: string;
 }[] = [];
 for (let i = 6; i < 16; i++) {
-  routineProductList.push({
+  routineItemList.push({
     routineId: 1,
     productId: i + 1,
     amount: faker.datatype.number({ min: 1, max: 20 }),
@@ -340,10 +352,12 @@ for (let i = 6; i < 16; i++) {
 
 async function main() {
   console.log(`Start seeding ...`);
-  const user = await prisma.user.create({
+  const userRoot = await prisma.user.create({
     data: userRootData,
   });
 
+  const addedUsers = await prisma.user.createMany({ data: userData });
+  // console.log(addedUsers);
   const addedIngredients = await prisma.ingredient.createMany({
     data: ingredientList,
   });
@@ -407,14 +421,10 @@ async function main() {
   for (let c of commentsList) {
     await prisma.comment.create({ data: c });
   }
-  await prisma.store.create({
-    data: {
-      userId: 1,
-    },
-  });
-  console.log(storeProductList);
-  await prisma.storeProduct.createMany({
-    data: storeProductList,
+
+  // console.log(storeItemList);
+  await prisma.storeItem.createMany({
+    data: storeItemList,
   });
 
   for (let r of routineData) {
@@ -423,13 +433,13 @@ async function main() {
     });
   }
 
-  for (let p of routineProductList) {
-    await prisma.routineProduct.create({
+  for (let p of routineItemList) {
+    await prisma.routineItem.create({
       data: p,
     });
   }
 
-  const existedRoutineProductList = await prisma.routineProduct.findMany({
+  const existedRoutineItemList = await prisma.routineItem.findMany({
     where: {
       routineId: 1,
     },
@@ -446,12 +456,12 @@ async function main() {
     },
   });
 
-  for (let eP of existedRoutineProductList) {
-    if (existedRoutineProductList.indexOf(eP) < 7) {
+  for (let eP of existedRoutineItemList) {
+    if (existedRoutineItemList.indexOf(eP) < 7) {
       const createdProductNode = await prisma.productNode.create({
         data: {
           label: eP.product.name,
-          routineProductId: eP.id,
+          routineItemId: eP.id,
           x: faker.datatype.number(500),
           y: faker.datatype.number(500),
         },
@@ -485,7 +495,7 @@ async function main() {
 
   const existedProductNodeList = await prisma.productNode.findMany({
     where: {
-      routineProduct: {
+      routineItem: {
         routineId: 1,
       },
     },

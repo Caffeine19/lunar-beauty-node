@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import commentRouter from "../Controller/commentController";
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 export const findByProduct = async (productId: number) => {
   try {

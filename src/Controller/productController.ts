@@ -1,5 +1,9 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { findProductOverView, findRelated } from "../Service/productService";
+import {
+  findProductOverView,
+  findByBrand,
+  findByIngredient,
+} from "../Service/productService";
 const productRouter = Router();
 
 productRouter.post(
@@ -17,11 +21,11 @@ productRouter.post(
   }
 );
 productRouter.post(
-  "/findRelated",
+  "/findByBrand",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { brand } = req.body;
-      const relatedProductList = await findRelated(brand);
+      const relatedProductList = await findByBrand(brand);
       res.send({ relatedProductList });
     } catch (error) {
       next(error);
@@ -29,4 +33,16 @@ productRouter.post(
   }
 );
 
+productRouter.post(
+  "/findByIngredient",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { ingredientId } = req.body;
+      const relatedProductList = await findByIngredient(ingredientId);
+      res.send({ relatedProductList });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 export default productRouter;

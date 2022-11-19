@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 export const findByUser = async (userId: number) => {
   try {
@@ -19,7 +17,7 @@ export const findNode = async (routineId: number) => {
   try {
     const productNodeList = await prisma.productNode.findMany({
       where: {
-        routineProduct: {
+        routineItem: {
           routineId,
         },
       },

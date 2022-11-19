@@ -7,18 +7,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+import userRouter from "./Controller/userController";
+app.use("/api/user", userRouter);
 import productRouter from "./Controller/productController";
 app.use("/api/product", productRouter);
 import ingredientRouter from "./Controller/ingredientController";
 app.use("/api/ingredient", ingredientRouter);
 import commentRouter from "./Controller/commentController";
 app.use("/api/comment", commentRouter);
-import storeProductRouter from "./Controller/storeProductController";
-app.use("/api/storeProduct", storeProductRouter);
+import storeItemRouter from "./Controller/storeItemController";
+app.use("/api/storeItem", storeItemRouter);
 import routineRouter from "./Controller/routineController";
 app.use("/api/routine", routineRouter);
-import routineProductRouter from "./Controller/routineProductController";
-app.use("/api/routineProduct", routineProductRouter);
+import routineItemRouter from "./Controller/routineItemController";
+app.use("/api/routineItem", routineItemRouter);
 //#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;
@@ -159,6 +161,7 @@ app.use("/api/routineProduct", routineProductRouter);
 //   res.json(posts);
 // });
 //#endregion
-const server = app.listen(3008, () =>
+const port = process.env.PORT || 3008;
+const server = app.listen(port, () =>
   console.log(`🚀 Server ready at: http://localhost:3008`)
 );
