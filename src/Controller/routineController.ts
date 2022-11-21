@@ -1,5 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { findByUser, findNode, findEdge } from "../Service/routineService";
+import {
+  findByUser,
+  findNode,
+  findEdge,
+  updateById,
+} from "../Service/routineService";
 const routineRouter = Router();
 
 routineRouter.post(
@@ -32,6 +37,23 @@ routineRouter.post(
       res.send({ edgeList });
     } catch (error) {
       next(error);
+    }
+  }
+);
+
+routineRouter.post(
+  "/updateById",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { routineId, name } = req.body;
+      if (!routineId || !name) throw new Error("missing params");
+      const updatedRoutine = await updateById(routineId, name);
+      res.send({ updatedRoutine });
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) {
+        res.status(500).send({ err: error.message });
+      }
     }
   }
 );

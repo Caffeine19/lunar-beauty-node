@@ -44,3 +44,19 @@ export const findEdge = async (routineId: number) => {
     throw error;
   }
 };
+
+export const updateById = async (routineId: number, name: string) => {
+  try {
+    const updatedRoutine = await prisma.routine.update({
+      where: {
+        id: routineId,
+      },
+      data: {
+        name,
+      },
+    });
+    return updatedRoutine;
+  } catch (error) {
+    throw error;
+  }
+};
