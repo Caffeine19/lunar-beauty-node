@@ -60,3 +60,16 @@ export const updateById = async (routineId: number, name: string) => {
     throw error;
   }
 };
+
+export const deleteById = async (routineId: number) => {
+  try {
+    const deletedRoutine = await prisma.routine.delete({
+      where: {
+        id: routineId,
+      },
+    });
+    return deletedRoutine;
+  } catch (error) {
+    throw error;
+  }
+};

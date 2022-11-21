@@ -17,7 +17,7 @@ userRouter.post(
       const loggedUser = await login(name, password);
       res.send(loggedUser);
     } catch (error) {
-      console.error(error)
+      console.error(error);
       if (error instanceof Error) {
         res.status(500).send({ err: error.message });
       }
@@ -84,4 +84,5 @@ userRouter.post(
     }
   }
 );
+
 export default userRouter;
