@@ -1,9 +1,11 @@
+import { Console } from "console";
 import { Router, Request, Response, NextFunction } from "express";
 import {
   findByUser,
   findNode,
   findEdge,
   updateById,
+  deleteById,
 } from "../Service/routineService";
 const routineRouter = Router();
 
@@ -51,6 +53,22 @@ routineRouter.post(
       res.send({ updatedRoutine });
     } catch (error) {
       console.error(error);
+      if (error instanceof Error) {
+        res.status(500).send({ err: error.message });
+      }
+    }
+  }
+);
+routineRouter.post(
+  "/deleteById",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { routineId } = req.body;
+      if (!routineId) throw new Error("missing params");
+      const deletedRoutine = await deleteById(routineId);
+      res.send({ deletedRoutine });
+    } catch (error) {
+      console.log(error);
       if (error instanceof Error) {
         res.status(500).send({ err: error.message });
       }

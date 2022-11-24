@@ -5,6 +5,7 @@ export const findByUser = async (userId: number) => {
     const routineList = await prisma.routine.findMany({
       where: {
         userId,
+        deleted: false,
       },
     });
     return routineList;
