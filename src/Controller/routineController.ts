@@ -6,6 +6,7 @@ import {
   findEdge,
   updateById,
   deleteById,
+  createByUser,
 } from "../Service/routineService";
 const routineRouter = Router();
 
@@ -67,6 +68,22 @@ routineRouter.post(
       if (!routineId) throw new Error("missing params");
       const deletedRoutine = await deleteById(routineId);
       res.send({ deletedRoutine });
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) {
+        res.status(500).send({ err: error.message });
+      }
+    }
+  }
+);
+routineRouter.post(
+  "/createByUser",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId, name } = req.body;
+      if (!userId || !name) throw new Error("missing params");
+      const createdRoutine = await createByUser(userId, name);
+      res.send({ createdRoutine });
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {

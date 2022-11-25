@@ -74,3 +74,17 @@ export const deleteById = async (routineId: number) => {
     throw error;
   }
 };
+
+export const createByUser = async (userId: number, name: string) => {
+  try {
+    const createdRoutine = await prisma.routine.create({
+      data: {
+        name,
+        userId,
+      },
+    });
+    return createdRoutine;
+  } catch (error) {
+    throw error;
+  }
+};
