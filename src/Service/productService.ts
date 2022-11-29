@@ -2,16 +2,26 @@ import prisma from "./prisma";
 
 import fs from "fs";
 
-export const findProductOverView = async (category: string) => {
+export const findProductOverView = async (
+  category: string,
+  skip: number,
+  take: number
+) => {
   try {
     let projectOverViewList;
+    console.log({ skip, take });
     if (category === "All") {
-      projectOverViewList = await prisma.product.findMany();
+      projectOverViewList = await prisma.product.findMany({
+        skip,
+        take,
+      });
     } else {
       projectOverViewList = await prisma.product.findMany({
         where: {
           category,
         },
+        skip,
+        take,
       });
     }
 
