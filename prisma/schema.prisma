@@ -11,10 +11,11 @@ model User {
   id       Int     @id @default(autoincrement())
   name     String
   password String
-  avatar   String?
-  phone    String? @unique
-  email    String? @unique
-  gender   Gender?
+  avatar   String  @default("")
+  phone    String? @unique @default("")
+  email    String? @unique @default("")
+
+  gender Gender?
 
   storeItems StoreItem[]
   routines   Routine[]
