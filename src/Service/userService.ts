@@ -50,6 +50,12 @@ export const updateById = async (
   userUpdateOption: IUserUpdateOption
 ) => {
   try {
+    // const existedUser = await prisma.user.findMany({
+    //   where: {
+    //     phone: userUpdateOption.phone,
+    //     email: userUpdateOption.email,
+    //   },
+    // });
     const updatedUser = await prisma.user.update({
       where: {
         id: userId,
