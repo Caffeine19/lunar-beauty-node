@@ -12,7 +12,7 @@ productRouter.post(
     try {
       const { category, skip, take } = req.body;
       const { productOverviewList, productCount } = await findProductOverView(
-        category.toString(),
+        category?.toString() || "All",
         skip,
         take
       );

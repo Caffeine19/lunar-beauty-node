@@ -1,7 +1,7 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+// import { Prisma, PrismaClient } from "@prisma/client";
 import express from "express";
 import cors from "cors";
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json({ limit: "10mb" }));
@@ -160,8 +160,8 @@ app.use("/api/routineItem", routineItemRouter);
 
 //   res.json(posts);
 // });
-//#endregion
+// #endregion
 const port = process.env.PORT || 3008;
 const server = app.listen(port, () =>
-  console.log(`🚀 Server ready at: http://localhost:3008`)
+  console.log(`🚀 Server ready at: http://localhost:${port}`)
 );
