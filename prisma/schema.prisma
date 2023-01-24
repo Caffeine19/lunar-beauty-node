@@ -37,7 +37,6 @@ model Product {
   images   String
   category String
   capacity String
-  mark     Float
 
   ingredients IngredientsOnProducts[]
 
@@ -72,7 +71,7 @@ model Comment {
   id           Int      @id @default(autoincrement())
   content      String   @db.Text
   created_time DateTime @default(now())
-  rank         Float
+  mark         Float
 
   user   User @relation(fields: [userId], references: [id])
   userId Int

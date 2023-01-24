@@ -33,7 +33,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[1]",
@@ -42,7 +41,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[2]",
@@ -51,7 +49,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[3]",
@@ -60,7 +57,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[4]",
@@ -69,7 +65,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[5]",
@@ -78,7 +73,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[6]",
@@ -87,7 +81,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[7]",
@@ -96,7 +89,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SURVIVAL 0 (S0)[8]",
@@ -105,7 +97,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[0]",
@@ -114,7 +105,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[1]",
@@ -123,7 +113,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[2]",
@@ -132,7 +121,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[3]",
@@ -141,7 +129,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[4]",
@@ -150,7 +137,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[5]",
@@ -159,7 +145,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[6]",
@@ -168,7 +153,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[7]",
@@ -177,7 +161,6 @@ const productList: Prisma.ProductCreateInput[] = [
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
-    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
   },
 ];
 const ingredientNameList1 = [
@@ -275,7 +258,7 @@ const commentsList = [
   {
     content:
       "Prisma is also available on the Prisma Data Platform, a cloud-based, collaborative environment for teams and organizations to develop type-safe applications. ",
-    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
     created_time: faker.date.recent(),
     userId: 1,
     productId: 1,
@@ -283,7 +266,7 @@ const commentsList = [
   {
     content:
       "The platform focuses on developer productivity with GitHub integration for your code and schema, a visual data browser, an online query console, and an optional data proxy for handling database connections. For more information, refer to the Prisma Data Platform documentation.",
-    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
     created_time: faker.date.recent(),
     userId: 1,
     productId: 1,
@@ -291,7 +274,7 @@ const commentsList = [
   {
     content:
       "For a more detailed breakdown of what problems Prisma solves, and why it's built to make you more productive, see the Why Prisma section.",
-    rank: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
     created_time: faker.date.recent(),
     userId: 1,
     productId: 1,
