@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 type WithPreservationStatus<T> = T & {
   isOpened: boolean;
   isExpired: boolean;
+  isRunout: boolean;
 };
 
 const calculatePreservationStatus = (
