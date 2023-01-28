@@ -8,7 +8,7 @@
 */
 -- AlterTable
 ALTER TABLE `comment` DROP COLUMN `rank`,
-    ADD COLUMN `mark` DOUBLE NOT NULL;
+    ADD COLUMN `mark` DOUBLE NOT NUL L;
 
 -- AlterTable
 ALTER TABLE `product` DROP COLUMN `mark`;
