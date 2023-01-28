@@ -21,3 +21,23 @@ export const findByProduct = async (productId: number) => {
     throw error;
   }
 };
+
+export const createByUser = async (
+  userId: number,
+  productId: number,
+  content: string,
+  mark: number
+) => {
+  try {
+    const createdComment = await prisma.comment.create({
+      data: {
+        userId,
+        productId,
+        content,
+        mark,
+      },
+    });
+
+    return createdComment;
+  } catch (error) {}
+};
