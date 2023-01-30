@@ -1,5 +1,9 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { findByProduct, createByUser } from "../Service/commentsService";
+import {
+  findByProduct,
+  createByUser,
+  deleteById,
+} from "../Service/commentsService";
 
 const commentRouter = Router();
 
@@ -35,4 +39,18 @@ commentRouter.post(
     }
   }
 );
+
+commentRouter.post(
+  "/deleteById",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { commentId } = req.body;
+      const deletedComment = await deleteById(commentId);
+      res.send({ deletedComment });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default commentRouter;

@@ -5,6 +5,7 @@ export const findByProduct = async (productId: number) => {
     const commentList = await prisma.comment.findMany({
       where: {
         productId,
+        deleted: false,
       },
       include: {
         user: {
@@ -51,5 +52,20 @@ export const createByUser = async (
     });
 
     return createdComment;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteById = async (commentId: number) => {
+  try {
+    const deletedComment = await prisma.comment.delete({
+      where: {
+        id: commentId,
+      },
+    });
+    return deletedComment;
+  } catch (error) {
+    throw error;
+  }
 };
