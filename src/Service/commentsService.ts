@@ -15,6 +15,9 @@ export const findByProduct = async (productId: number) => {
           },
         },
       },
+      orderBy: {
+        created_time: "desc",
+      },
     });
     return commentList;
   } catch (error) {
@@ -35,6 +38,15 @@ export const createByUser = async (
         productId,
         content,
         mark,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar: true,
+          },
+        },
       },
     });
 

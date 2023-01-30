@@ -279,6 +279,22 @@ const commentsList = [
     userId: 1,
     productId: 1,
   },
+  {
+    content:
+      "The platform focuses on developer productivity with GitHub integration for your code and schema, a visual data browser, an online query console, and an optional data proxy for handling database connections. For more information, refer to the Prisma Data Platform documentation.",
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 2,
+    productId: 1,
+  },
+  {
+    content:
+      "For a more detailed breakdown of what problems Prisma solves, and why it's built to make you more productive, see the Why Prisma section.",
+    mark: faker.datatype.float({ min: 0, max: 10, precision: 0.01 }),
+    created_time: faker.date.recent(),
+    userId: 2,
+    productId: 1,
+  },
 ];
 
 const storeItemList: {
