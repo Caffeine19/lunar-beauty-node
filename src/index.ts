@@ -1,7 +1,7 @@
-// import { Prisma, PrismaClient } from "@prisma/client";
 import express from "express";
 import cors from "cors";
-// const prisma = new PrismaClient();
+import { scheduleJob, RecurrenceRule } from "node-schedule";
+
 const app = express();
 
 app.use(express.json({ limit: "10mb" }));
@@ -21,6 +21,13 @@ import routineRouter from "./Controller/routineController";
 app.use("/api/routine", routineRouter);
 import routineItemRouter from "./Controller/routineItemController";
 app.use("/api/routineItem", routineItemRouter);
+
+const rule = new RecurrenceRule();
+rule.second = [0, 10, 20, 30, 40, 50];
+const job = scheduleJob(rule, function () {
+  console.log("The answer to life, the universe, and everything!");
+});
+
 //#region
 // app.post(`/signup`, async (req, res) => {
 //   const { name, email, posts } = req.body;
