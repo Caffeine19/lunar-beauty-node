@@ -3,14 +3,12 @@ CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
-    `avatar` VARCHAR(191) NOT NULL,
-    `phone` VARCHAR(191) NOT NULL,
-    `email` VARCHAR(191) NOT NULL,
-    `gender` ENUM('MAN', 'WOMON') NOT NULL,
+    `avatar` VARCHAR(191) NULL DEFAULT '',
+    `phone` VARCHAR(191) NULL DEFAULT '',
+    `email` VARCHAR(191) NULL DEFAULT '',
+    `gender` ENUM('MAN', 'WOMAN') NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
-    UNIQUE INDEX `User_phone_key`(`phone`),
-    UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -19,11 +17,10 @@ CREATE TABLE `Product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `brand` VARCHAR(191) NOT NULL,
-    `price` VARCHAR(191) NOT NULL,
+    `price` DOUBLE NOT NULL,
     `images` VARCHAR(191) NOT NULL,
     `category` VARCHAR(191) NOT NULL,
     `capacity` VARCHAR(191) NOT NULL,
-    `mark` DOUBLE NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Product_name_key`(`name`),
@@ -53,7 +50,7 @@ CREATE TABLE `Comment` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `content` TEXT NOT NULL,
     `created_time` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `rank` DOUBLE NOT NULL,
+    `mark` DOUBLE NOT NULL,
     `userId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
@@ -65,14 +62,14 @@ CREATE TABLE `Comment` (
 CREATE TABLE `StoreItem` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `productId` INTEGER NOT NULL,
-    `amount` INTEGER NOT NULL,
+    `amount` INTEGER NOT NULL DEFAULT 0,
     `applyingTime` ENUM('ALL', 'DAY', 'Night') NOT NULL DEFAULT 'ALL',
-    `expense` VARCHAR(191) NOT NULL,
+    `expense` DOUBLE NOT NULL DEFAULT 0,
     `productionTime` DATETIME(3) NOT NULL,
     `shelfTime` INTEGER NOT NULL,
     `openedTime` DATETIME(3) NULL,
     `isRunout` BOOLEAN NOT NULL DEFAULT false,
-    `userId` INTEGER NULL,
+    `userId` INTEGER NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
@@ -95,7 +92,7 @@ CREATE TABLE `RoutineItem` (
     `productId` INTEGER NOT NULL,
     `amount` INTEGER NOT NULL,
     `applyingTime` ENUM('ALL', 'DAY', 'Night') NOT NULL DEFAULT 'ALL',
-    `expense` VARCHAR(191) NOT NULL,
+    `expense` DOUBLE NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
@@ -155,7 +152,7 @@ ALTER TABLE `Comment` ADD CONSTRAINT `Comment_productId_fkey` FOREIGN KEY (`prod
 ALTER TABLE `StoreItem` ADD CONSTRAINT `StoreItem_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `StoreItem` ADD CONSTRAINT `StoreItem_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `StoreItem` ADD CONSTRAINT `StoreItem_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Routine` ADD CONSTRAINT `Routine_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

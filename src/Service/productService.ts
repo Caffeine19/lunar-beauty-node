@@ -2,22 +2,35 @@ import prisma from "./prisma";
 
 import fs from "fs";
 
-export const findProductOverView = async (category: string) => {
+export const findProductOverView = async (
+  category: string,
+  skip: number,
+  take: number
+) => {
   try {
-    let projectOverViewList;
+    let productOverviewList;
+    let productCount;
+    console.log({ skip, take });
     if (category === "All") {
-      projectOverViewList = await prisma.product.findMany();
+      productOverviewList = await prisma.product.findMany({
+        skip,
+        take,
+      });
+      productCount = await prisma.product.count();
     } else {
-      projectOverViewList = await prisma.product.findMany({
+      productOverviewList = await prisma.product.findMany({
         where: {
           category,
         },
+        skip,
+        take,
       });
+      productCount = await prisma.product.count({ where: { category } });
     }
 
     const basePath = "../lunar-beauty-node/src/static/productImages/Product/";
     const taskList: any[] = [];
-    projectOverViewList.forEach((p) => {
+    productOverviewList.forEach((p) => {
       taskList.push(
         fs.promises.readFile(basePath + p.images, {
           encoding: "base64",
@@ -27,11 +40,11 @@ export const findProductOverView = async (category: string) => {
 
     const productImageList = await Promise.all(taskList);
 
-    projectOverViewList.forEach((p, index) => {
+    productOverviewList.forEach((p, index) => {
       p.images = productImageList[index];
     });
 
-    return projectOverViewList;
+    return { productOverviewList, productCount };
   } catch (error) {
     throw error;
   }

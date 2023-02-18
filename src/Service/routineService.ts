@@ -5,6 +5,7 @@ export const findByUser = async (userId: number) => {
     const routineList = await prisma.routine.findMany({
       where: {
         userId,
+        deleted: false,
       },
     });
     return routineList;
@@ -40,6 +41,49 @@ export const findEdge = async (routineId: number) => {
     });
 
     return edgeList;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateById = async (routineId: number, name: string) => {
+  try {
+    const updatedRoutine = await prisma.routine.update({
+      where: {
+        id: routineId,
+      },
+      data: {
+        name,
+      },
+    });
+    return updatedRoutine;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteById = async (routineId: number) => {
+  try {
+    const deletedRoutine = await prisma.routine.delete({
+      where: {
+        id: routineId,
+      },
+    });
+    return deletedRoutine;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createByUser = async (userId: number, name: string) => {
+  try {
+    const createdRoutine = await prisma.routine.create({
+      data: {
+        name,
+        userId,
+      },
+    });
+    return createdRoutine;
   } catch (error) {
     throw error;
   }

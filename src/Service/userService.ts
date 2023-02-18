@@ -4,6 +4,8 @@ import { SHA256 } from "crypto-js";
 
 import { generateToken } from "../utils/token";
 
+import fs from "fs";
+
 export const login = async (name: string, password: string) => {
   try {
     const user = await prisma.user.findMany({
@@ -48,6 +50,12 @@ export const updateById = async (
   userUpdateOption: IUserUpdateOption
 ) => {
   try {
+    // const existedUser = await prisma.user.findMany({
+    //   where: {
+    //     phone: userUpdateOption.phone,
+    //     email: userUpdateOption.email,
+    //   },
+    // });
     const updatedUser = await prisma.user.update({
       where: {
         id: userId,
@@ -72,6 +80,20 @@ export const deleteById = async (userId: number) => {
       },
     });
     return deletedUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateAvatarById = async (userId: number, imgUrl: string) => {
+  try {
+    const data = imgUrl.replace(/^data:image\/\w+;base64,/, "");
+
+    const res = await fs.promises.writeFile(
+      `./src/static/avatar/userId${userId}.jpeg`,
+      data
+    );
+    return res;
   } catch (error) {
     throw error;
   }

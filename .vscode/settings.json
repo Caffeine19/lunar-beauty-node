@@ -1,5 +1,7 @@
 {
-  "cSpell.words": ["NIOD"],
+  "cSpell.words": [
+    "NIOD"
+  ],
   "editor.formatOnSave": true,
-  "workbench.colorTheme": "Tokyo Night Storm"
+  "workbench.colorTheme": "Tokyo Night"
 }

@@ -10,11 +10,13 @@ productRouter.post(
   "/findOverview",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { category } = req.body;
-      const productOverviewList = await findProductOverView(
-        category.toString()
+      const { category, skip, take } = req.body;
+      const { productOverviewList, productCount } = await findProductOverView(
+        category?.toString() || "All",
+        skip,
+        take
       );
-      res.send({ productOverviewList });
+      res.send({ productOverviewList, productCount });
     } catch (error) {
       next(error);
     }

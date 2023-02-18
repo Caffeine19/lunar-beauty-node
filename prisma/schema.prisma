@@ -11,10 +11,11 @@ model User {
   id       Int     @id @default(autoincrement())
   name     String
   password String
-  avatar   String?
-  phone    String? @unique
-  email    String? @unique
-  gender   Gender?
+  avatar   String? @default("")
+  phone    String? @default("")
+  email    String? @default("")
+
+  gender Gender?
 
   storeItems StoreItem[]
   routines   Routine[]
@@ -32,11 +33,10 @@ model Product {
   id       Int    @id @default(autoincrement())
   name     String @unique
   brand    String
-  price    String
+  price    Float
   images   String
   category String
   capacity String
-  mark     Float
 
   ingredients IngredientsOnProducts[]
 
@@ -71,7 +71,7 @@ model Comment {
   id           Int      @id @default(autoincrement())
   content      String   @db.Text
   created_time DateTime @default(now())
-  rank         Float
+  mark         Float
 
   user   User @relation(fields: [userId], references: [id])
   userId Int
@@ -94,17 +94,17 @@ model StoreItem {
   product   Product @relation(fields: [productId], references: [id])
   productId Int
 
-  amount       Int
+  amount       Int          @default(0)
   applyingTime ApplyingTime @default(ALL)
-  expense      String
+  expense      Float        @default(0)
 
   productionTime DateTime
   shelfTime      Int
   openedTime     DateTime?
   isRunout       Boolean   @default(false)
 
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   deleted Boolean @default(false)
 }
@@ -133,7 +133,7 @@ model RoutineItem {
 
   amount       Int
   applyingTime ApplyingTime @default(ALL)
-  expense      String
+  expense      Float
 
   poductNode ProductNode?
 
