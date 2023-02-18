@@ -1,4 +1,11 @@
-import { PrismaClient, Prisma, Ingredient, ApplyingTime } from "@prisma/client";
+import {
+  PrismaClient,
+  Prisma,
+  Ingredient,
+  ApplyingTime,
+  StoreItem,
+  RoutineItem,
+} from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { SHA256 } from "crypto-js";
 
@@ -29,7 +36,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[0]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -37,7 +44,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[1]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -45,7 +52,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[2]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -53,7 +60,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[3]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -61,7 +68,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[4]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -69,7 +76,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[5]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -77,7 +84,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[6]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -85,7 +92,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[7]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -93,7 +100,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SURVIVAL 0 (S0)[8]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-0.png",
     category: "Sunscreen",
     capacity: "30ml",
@@ -101,7 +108,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[0]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -109,7 +116,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[1]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -117,7 +124,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[2]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -125,7 +132,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[3]",
     brand: "NIOD",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -133,7 +140,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[4]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -141,7 +148,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[5]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -149,7 +156,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[6]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -157,7 +164,7 @@ const productList: Prisma.ProductCreateInput[] = [
   {
     name: "SUPEROXIDE DISMUTASE SACCHARIDE MIST (SDSM2)[7]",
     brand: "NIOD[2]",
-    price: faker.finance.amount(10, 100, 2, "$"),
+    price: faker.datatype.number({ min: 1, max: 20, precision: 2 }),
     images: "ProductImg-1.png",
     category: "Lotion",
     capacity: "240ml",
@@ -298,15 +305,15 @@ const commentsList = [
 ];
 
 const storeItemList: {
-  userId: number;
-  productId: number;
-  amount: number;
+  userId: StoreItem["userId"];
+  productId: StoreItem["productId"];
+  amount: StoreItem["amount"];
   applyingTime: ApplyingTime;
-  productionTime: Date;
-  openedTime: Date | null;
-  shelfTime: number;
-  expense: string;
-  isRunout: boolean;
+  productionTime: StoreItem["productionTime"];
+  openedTime: StoreItem["openedTime"];
+  shelfTime: StoreItem["shelfTime"];
+  expense: StoreItem["expense"];
+  isRunout: StoreItem["isRunout"];
 }[] = [];
 for (let i = 0; i < 16; i++) {
   storeItemList.push({
@@ -321,7 +328,7 @@ for (let i = 0; i < 16; i++) {
     productionTime: faker.date.past(),
     openedTime: faker.helpers.arrayElement([null, faker.date.recent()]),
     shelfTime: faker.helpers.arrayElement([3, 6, 12, 24]),
-    expense: faker.finance.amount(10, 1000, 2, "$"),
+    expense: Number(faker.finance.amount(10, 1000, 2)),
     isRunout: faker.helpers.arrayElement([true, false]),
   });
 }
@@ -329,11 +336,11 @@ for (let i = 0; i < 16; i++) {
 const routineData = ["2022-h1", "2022-h2", "2021-h1", "2021-h2"];
 
 const routineItemList: {
-  routineId: number;
-  productId: number;
-  amount: number;
+  routineId: RoutineItem["routineId"];
+  productId: RoutineItem["productId"];
+  amount: RoutineItem["amount"];
   applyingTime: ApplyingTime;
-  expense: string;
+  expense: RoutineItem["expense"];
 }[] = [];
 for (let i = 6; i < 16; i++) {
   routineItemList.push({
@@ -345,7 +352,7 @@ for (let i = 6; i < 16; i++) {
       "DAY",
       "Night",
     ]) as ApplyingTime,
-    expense: faker.finance.amount(0, 1000, 2, "$"),
+    expense: Number(faker.finance.amount(0, 1000, 2)),
   });
 }
 

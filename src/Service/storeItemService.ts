@@ -1,6 +1,6 @@
 import prisma from "./prisma";
 
-import { ApplyingTime, StoreItem } from "@prisma/client";
+import { ApplyingTime, Product, StoreItem, User } from "@prisma/client";
 
 import fs from "fs";
 import dayjs from "dayjs";
@@ -29,7 +29,7 @@ const calculatePreservationStatus = (
   };
 };
 
-export const findByUser = async (userId: number) => {
+export const findByUser = async (userId: StoreItem["userId"]) => {
   try {
     const storeItems = await prisma.storeItem.findMany({
       where: {
@@ -64,7 +64,7 @@ export const findByUser = async (userId: number) => {
     throw error;
   }
 };
-export const deleteById = async (storeItemId: number) => {
+export const deleteById = async (storeItemId: StoreItem["id"]) => {
   try {
     const deletedStoreItem = await prisma.storeItem.delete({
       where: {
@@ -78,14 +78,14 @@ export const deleteById = async (storeItemId: number) => {
 };
 
 export const updateById = async (
-  storeItemId: number,
-  amount: number,
+  storeItemId: StoreItem["id"],
+  amount: StoreItem["amount"],
   applyingTime: ApplyingTime,
-  expense: string,
-  productionTime: string,
-  shelfTime: number,
-  openedTime: string,
-  isRunout: boolean
+  expense: StoreItem["expense"],
+  productionTime: StoreItem["productionTime"],
+  shelfTime: StoreItem["shelfTime"],
+  openedTime: StoreItem["openedTime"],
+  isRunout: StoreItem["isRunout"]
 ) => {
   try {
     const updatedStoreItem = await prisma.storeItem.update({
@@ -107,6 +107,53 @@ export const updateById = async (
       calculatePreservationStatus(updatedStoreItem);
 
     return updatedStoreItemWithPreservationStatus;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createByUser = async (
+  productId: Product["id"],
+  amount: StoreItem["amount"],
+  applyingTime: ApplyingTime,
+  expense: StoreItem["expense"],
+  productionTime: StoreItem["productionTime"],
+  shelfTime: StoreItem["shelfTime"],
+  openedTime: StoreItem["openedTime"],
+  isRunout: StoreItem["isRunout"],
+  userId: User["id"]
+) => {
+  console.log("***", productionTime, openedTime, shelfTime);
+  try {
+    const createdStoreItem = await prisma.storeItem.create({
+      data: {
+        productId,
+        amount,
+        applyingTime,
+        expense,
+        productionTime,
+        shelfTime,
+        openedTime,
+        isRunout,
+        userId,
+      },
+      include: {
+        product: true,
+      },
+    });
+
+    const basePath = "../lunar-beauty-node/src/static/productImages/Product/";
+    createdStoreItem.product.images = await fs.promises.readFile(
+      basePath + createdStoreItem.product.images,
+      {
+        encoding: "base64",
+      }
+    );
+
+    const createdStoreItemWithCalculatedPreservationStatus =
+      calculatePreservationStatus(createdStoreItem);
+
+    return createdStoreItemWithCalculatedPreservationStatus;
   } catch (error) {
     throw error;
   }

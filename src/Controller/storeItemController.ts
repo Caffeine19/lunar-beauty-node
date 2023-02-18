@@ -4,6 +4,7 @@ import {
   findByUser,
   deleteById,
   updateById,
+  createByUser,
 } from "../Service/storeItemService";
 
 const storeItemRouter = Router();
@@ -57,6 +58,40 @@ storeItemRouter.post(
         isRunout
       );
       res.send({ updatedStoreItem });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+storeItemRouter.post(
+  "/createByUser",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const {
+        productId,
+        amount,
+        applyingTime,
+        expense,
+        productionTime,
+        shelfTime,
+        openedTime,
+        isRunout,
+        userId,
+      } = req.body;
+      console.log("***", productionTime, openedTime, shelfTime);
+      const createdStoreItem = await createByUser(
+        productId,
+        amount,
+        applyingTime,
+        parseInt(expense),
+        productionTime,
+        shelfTime,
+        openedTime,
+        isRunout,
+        userId
+      );
+
+      res.send({ createdStoreItem });
     } catch (error) {
       next(error);
     }

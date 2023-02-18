@@ -22,11 +22,11 @@ app.use("/api/routine", routineRouter);
 import routineItemRouter from "./Controller/routineItemController";
 app.use("/api/routineItem", routineItemRouter);
 
-const rule = new RecurrenceRule();
-rule.second = [0, 10, 20, 30, 40, 50];
-const job = scheduleJob(rule, function () {
-  console.log("The answer to life, the universe, and everything!");
-});
+// const rule = new RecurrenceRule();
+// rule.second = [0, 10, 20, 30, 40, 50];
+// const job = scheduleJob(rule, function () {
+//   console.log("The answer to life, the universe, and everything!");
+// });
 
 //#region
 // app.post(`/signup`, async (req, res) => {
